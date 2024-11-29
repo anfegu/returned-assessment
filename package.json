@@ -7,7 +7,7 @@
     "build": "npm run clean && sam build",
     "clean": "rm -rf dist && rm -rf .aws-sam",
     "start": "sam local start-api",
-    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
+    "test": "jest",
     "tsc": "tsc"
   },
   "repository": {
@@ -28,9 +28,12 @@
   },
   "homepage": "https://github.com/jrios-celerik/returned-notification-lambda-service#readme",
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.146",
+    "@types/jest": "^29.5.14",
     "aws-sdk-client-mock": "^2.0.0",
     "esbuild": "^0.24.0",
     "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
     "typescript": "^5.7.2"
   },
   "dependencies": {

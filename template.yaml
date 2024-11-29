@@ -18,8 +18,8 @@ Resources:
   # Each Lambda function is defined by properties:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
 
-  # This is a Lambda function config associated with the source code: get-all-items.js
-  helloFromLambda:
+   # Lambda function to process different types of notifications (POST)
+  NotificationProcessorFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: source/
@@ -29,16 +29,20 @@ Resources:
         - x86_64
       MemorySize: 128
       Timeout: 100
-      Description: A simple example Lambda Function.
-      # Policies:
-      # Environment:
-        # Variables:
+      Description: Lambda function to process email and SMS notifications
       Events:
-        Api:
+        ApiPost:
           Type: Api
           Properties:
-            Path: /
+            Path: /process-notification
+            Method: POST
+
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /notifications
             Method: GET
+
     Metadata:
       BuildMethod: esbuild
       BuildProperties:
@@ -50,6 +54,7 @@ Resources:
         Sourcemap: true
         EntryPoints:
           - index.ts
+
 
 # Outputs:
 #   WebEndpoint:
