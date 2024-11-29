@@ -1,11 +1,12 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { validateNotificationPayload } from '../utils/validatePayload';
 import { logger } from '../utils/logger';
+import { Notification } from '../interfaces/notification';
 
 export const processNotification = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
-    const notification = JSON.parse(event.body || '{}');
-    
+    const notification: Notification = JSON.parse(event.body || '{}');
+
     // Validación
     const validationError = validateNotificationPayload(notification);
     if (validationError) {
@@ -16,7 +17,7 @@ export const processNotification = async (event: APIGatewayProxyEvent): Promise<
       };
     }
 
-    // Si la validación pasa
+    // Procesa la notificación
     logger.info('Processing notification:', notification);
     return {
       statusCode: 200,
